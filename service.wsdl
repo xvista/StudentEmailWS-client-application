@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding ="utf-8"?>
+<!-- 
+(c) Atikhun Orisoon
+2016-03-08
+generate student email
+
+Online WSDL 1.1 SOAP generator 0.2
+Julien Blitte
+ -->
+<definitions name="StudentEmailWS"
+  targetNamespace="http://schemas.xmlsoap.org/wsdl"
+  xmlns:tns="http://schemas.xmlsoap.org/wsdl"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:xsd1="http://schemas.xmlsoap.org/wsdl"
+  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+  xmlns="http://schemas.xmlsoap.org/wsdl/">
+<!-- definition of datatypes -->
+  <types>
+    <schema targetNamespace="http://schemas.xmlsoap.org/wsdl" xmlns="http://www.w3.org/2000/10/XMLSchema">
+      <element name="name">
+        <complexType><all><element name="value" type="string" /></all></complexType>
+      </element>
+      <element name="univ">
+        <complexType><all><element name="value" type="string" /></all></complexType>
+      </element>
+      <element name="country">
+        <complexType><all><element name="value" type="string" /></all></complexType>
+      </element>
+      <element name="email">
+        <complexType><all><element name="value" type="string" /></all></complexType>
+      </element>
+    </schema>
+  </types>
+<!-- response messages -->
+  <message name='returns_email'>
+    <part name='email' type='xsd:email'/>
+  </message>
+<!-- request messages -->
+  <message name='getStudentEmail'>
+    <part name='name' type='xsd:name'/>
+    <part name='univ' type='xsd:univ'/>
+    <part name='country' type='xsd:country'/>
+  </message>
+<!-- server's services -->
+  <portType name='StudentEmailWS'>
+    <operation name='getStudentEmail'>
+      <input message='tns:getStudentEmail'/>
+      <output message='tns:returns_email'/>
+    </operation>
+  </portType>
+<!-- server encoding -->
+  <binding name='StudentEmailWS_webservices' type='tns:StudentEmailWS'>
+  <soap:binding style='rpc' transport='http://schemas.xmlsoap.org/soap/http'/>
+    <operation name='getStudentEmail'>
+    <soap:operation soapAction='urn:xmethods-delayed-quotes#getStudentEmail'/>
+    <input><soap:body use='encoded' namespace='urn:xmethods-delayed-quotes' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/></input>
+    <output><soap:body use='encoded' namespace='urn:xmethods-delayed-quotes' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/></output>
+    </operation>
+  </binding>
+<!-- access to service provider -->
+  <service name='StudentEmailWS'>
+  <port name='production' binding='StudentEmailWS_webservices'>
+  <soap:address location='http://127.0.0.1:8888/wsdl'/>
+  </port>
+  </service>
+</definitions>
